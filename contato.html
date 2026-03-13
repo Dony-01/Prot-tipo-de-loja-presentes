@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mozer´s </title>
+  <link rel="stylesheet" href="css/styles.css" >
+</head>
+
+<body>  
+
+<header class="header">
+
+  <div class="search-bar">
+
+    <div class="menu"> <img src="img/menu.png" alt="menu"
+      height=" 20px" width="20px"
+      onclick="openMenu()"> </div>
+
+    <input id="searchInput" type="text" placeholder="Produto desejado...">
+
+    <div class="cart">
+      <img src="img/cart.png" alt="carrinho"
+       height="15px"       width="20px">
+      <span id="cart-count">0</span>
+    </div>
+
+  </div>
+
+</header>
+
+<body>
+
+  <div class="side-menu" id="sideMenu">
+
+  <span class="close-menu" onclick="closeMenu()">✖</span>
+
+
+  <a href="index.html">Início</a>
+  <a href="ofertas.html">Ofertas</a>
+  <a href="localização.html">Localidade</a>
+  <a href="contato.html">Contato</a>
+
+</div>
+
+
+
+
+<footer>
+  <p>MOZE®´s 2026</p>
+  <p>Todos os direitos reservados</p>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/menu.js"></script>
+</body>
+</html>
