@@ -3,19 +3,22 @@ let products = [
 {
 name: "Kit Canetas Coloridas",
 price: 14.90,
-image: "canetas.jpg"
+image: "img/canetas.jpg",
+category: "papelaria"
 },
 
 {
 name: "Fone de Ouvido",
 price: 24.90,
-image: "fone.jpg"
+image: "img/fone.jpg",
+category: "eletronicos"
 },
 
 {
 name: "Sabonete NBA",
 price: 5.90,
-image: "sabonete.jpg"
+image: "img/sabonete.jpg",
+category: "presentes"
 }
 
 ];
@@ -25,13 +28,13 @@ let newProducts = [
 {
 name: "Caderno Gamer",
 price: 19.90,
-image: "caderno ps5.jpg"
+image: "img/caderno ps5.jpg"
 },
 
 {
 name: "Mouse RGB",
 price: 39.90,
-image: "mouse warrior.webp"
+image: "img/mouse warrior.webp"
 }
 
 ];
@@ -46,14 +49,12 @@ function renderProducts(list){
 
 container.innerHTML = "";
 
-list.forEach(product => {
-
+list.forEach((product,index) => {
 container.innerHTML += `
 <div class="product-card">
 
 <img src="${product.image}"
-onclick="openModal('${product.name}','${product.image}',${product.price})">
-
+onclick="window.location.href='produto.html?id=${index}'">
 <h3>${product.name}</h3>
 
 <p class="price">
@@ -71,9 +72,57 @@ Adicionar ao carrinho
 
 }
 
+const params = new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+if(id !== null){
+
+const product = products[id];
+
+document.getElementById("productImage").src = product.image;
+
+document.getElementById("productName").innerText = product.name;
+
+document.getElementById("productPrice").innerText =
+"R$ " + product.price.toFixed(2);
+
+document.getElementById("buyButton").onclick = function(){
+
+addToCart(product);
+
+};
+
+}
+
+
+function filterCategory(category){
+
+let buttons = document.querySelectorAll(".category-btn");
+
+buttons.forEach(btn => btn.classList.remove("active"));
+
+event.target.classList.add("active");
+
+if(category === "all"){
+renderProducts(products);
+return;
+}
+
+let filtered = products.filter(product =>
+product.category === category
+);
+
+renderProducts(filtered);
+
+}
+
+
 function renderGrid(list, containerId){
 
 let grid = document.getElementById(containerId);
+
+if(!grid) return;
 
 grid.innerHTML = "";
 
@@ -82,8 +131,7 @@ list.forEach(product => {
 grid.innerHTML += `
 <div class="product-card">
 
-<img src="${product.image}"
-onclick="openModal('${product.name}','${product.image}',${product.price})">
+<img src="${product.image}">
 
 <h3>${product.name}</h3>
 
@@ -93,21 +141,22 @@ R$ ${product.price.toLocaleString("pt-BR",{minimumFractionDigits:2})}
 
 <button onclick='addToCart(${JSON.stringify(product)})'>
 Adicionar ao carrinho
-
 </button>
+
 </div>
 `;
 
 });
 
-}
 
-renderProducts(products);
+}
 
 renderGrid(newProducts,"newContainer");
 
 const searchInput = document.getElementById("searchInput");
-    
+
+if(searchInput){
+
 searchInput.addEventListener("input",function(){
 
 let search = this.value.toLowerCase();
@@ -117,12 +166,11 @@ product.name.toLowerCase().includes(search)
 );
 
 if(container){
-renderProducts(products);
+renderProducts(filtered);
 }
 
 renderGrid(newProducts,"newContainer");
 
-
-
 });
 
+}
