@@ -3,19 +3,19 @@ let products = [
 {
 name: "Kit Canetas Coloridas",
 price: 14.90,
-image: "img/canetas.jpg"
+image: "canetas.jpg"
 },
 
 {
 name: "Fone de Ouvido",
 price: 24.90,
-image: "img/fone.jpg"
+image: "fone.jpg"
 },
 
 {
 name: "Sabonete NBA",
 price: 5.90,
-image: "img/sabonete.jpg"
+image: "sabonete.jpg"
 }
 
 ];
@@ -25,13 +25,13 @@ let newProducts = [
 {
 name: "Caderno Gamer",
 price: 19.90,
-image: "img/caderno ps5.jpg"
+image: "caderno ps5.jpg"
 },
 
 {
 name: "Mouse RGB",
 price: 39.90,
-image: "img/mouse warrior.webp"
+image: "mouse warrior.webp"
 }
 
 ];
@@ -125,3 +125,4 @@ renderGrid(newProducts,"newContainer");
 
 
 });
+
