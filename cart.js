@@ -137,21 +137,20 @@ updateTotal();
 
 }
 
-function removeFromCart(index){
+function removeItem(index){
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-cart.splice(index,1);
+cart.splice(index);
 
 localStorage.setItem("cart", JSON.stringify(cart));
 
-
 renderCart();
+
+renderProducts(cart);
+
+}
 
 updateCartCount();
 
-
-}
 
 renderCart();
 
