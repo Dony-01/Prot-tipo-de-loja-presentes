@@ -32,13 +32,6 @@ body {
   padding-bottom:15px;
 }
 
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  align-items:center;
-  padding-bottom:15px;
-}
-
 .search-bar{
   width:100%;
   display:flex;
@@ -56,6 +49,7 @@ body {
   border:none;
   background:rgba(255, 255, 255, 0.9) ;
 }
+
 
 .menu{
   font-size:22px;
@@ -332,6 +326,7 @@ padding:5px 8px;
 border-radius:5px;
 cursor:pointer;
 }
+
 
 
 
