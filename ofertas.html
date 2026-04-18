@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="styles.css" >
 </head>
 
-<body>  
-
 <header class="header">
 
   <div class="search-bar">
@@ -19,17 +17,15 @@
 
     <input id="searchInput" type="text" placeholder="Produto desejado...">
 
-    <div class="cart">
+    <div class="cart" onclick="window.location='cart.html'">
       <img src="cart.png" alt="carrinho"
-       height="15px"       width="20px">
+       height="30px"       width="20px">
       <span id="cart-count">0</span>
     </div>
 
   </div>
 
 </header>
-
-<body>
 
   <div class="side-menu" id="sideMenu">
 
@@ -42,27 +38,23 @@
 
 </div>
 
-</div>
+<body>  
 
 <section class="ofertas">
   <h2>OFERTAS 🔥</h2>
 
-  <div class="products" id="ofertas"></div>
+  <div class="products" id="offersContainer"></div>
 
 </section>
 
 <body>
 
-</div>
-  
 <footer>
   <p>MOZE®´s 2026</p>
   <p>Todos os direitos reservados</p>
 </footer>
 
-<script src="products.js"></script>
+<script src="jproducts.js"></script>
 <script src="cart.js"></script>
 <script src="menu.js"></script>
-</body>
-
 </html>
