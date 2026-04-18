@@ -2,22 +2,21 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 function addToCart(product){
 
-cart.push(product);
+  cart.push(product);
 
-localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
 
-updateCartCount();
+  updateCartCount();
+  updateTotal(); // ✅ aqui sim
 
-console.log("Carrinho:", cart);
-
-Swal.fire({
-icon: "success",
-title: "Produto adicionado!",
-timer: 1200,
-showConfirmButton: false
-});
-
+  Swal.fire({
+    icon: "success",
+    title: "Produto adicionado!",
+    timer: 1200,
+    showConfirmButton: false
+  });
 }
+
 
 function openModal(name, image, price){
 
@@ -49,34 +48,36 @@ modal.style.display = "none";
 }
 
 function updateCartCount(){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let count = document.getElementById("cart-count");
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-let count = document.getElementById("cart-count");
-
-if(count){
-count.innerText = cart.length;
+  if(count){
+    count.innerText = cart.length;
+  }
 }
 
-}
+
 
 function updateTotal(){
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let totalElement = document.getElementById("cartTotal");
 
-let total = 0;
+  if(!totalElement) return;
 
-cart.forEach(product => {
-total += Number(product.price);
-});
+  if(cart.length === 0){
+    totalElement.innerText = "R$ 0,00";
+    return;
+  }
 
-let totalElement = document.getElementById("cartTotal");
+  let total = 0;
 
-if(totalElement){
-totalElement.innerText =
-"R$ " + total.toLocaleString("pt-BR",{minimumFractionDigits:2});
-}
+  cart.forEach(product => {
+    total += Number(product.price);
+  });
 
+  totalElement.innerText =
+    "R$ " + total.toLocaleString("pt-BR",{minimumFractionDigits:2});
 }
 
 function checkoutWhatsApp(){
@@ -132,16 +133,19 @@ Remover
 
 });
 
-
+updateCartCount();
 updateTotal();
+
 
 }
 
 function removeItem(index){
-  cart.splice(index, 1); // remove só 1 item
+  cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
+
   renderCart();
   updateCartCount();
+  updateTotal(); // 🔥 faltava isso
 }
 
 updateCartCount();
