@@ -10,9 +10,12 @@ fetch("https://sheetdb.io/api/v1/v91yt0l1rpveu")
       price: Number(p.price.toString().replace(",", ".")),
       image: p.image,
       category: p.category,
-      isNew: p.isNew === "true"
+      isNew: p.isNew.toString().trim().toLowerCase() === "true",
+      description: p.description
     }));
 
+    console.log(products); // 👈 AQUI
+    
     initStore();
 
     const params = new URLSearchParams(window.location.search);
@@ -26,6 +29,7 @@ fetch("https://sheetdb.io/api/v1/v91yt0l1rpveu")
         document.getElementById("productName").innerText = product.name;
         document.getElementById("productPrice").innerText =
           "R$ " + product.price.toFixed(2);
+          document.getElementById("productDescription").innerText = product.description;
 
         document.getElementById("buyButton").onclick = function(){
           addToCart(product);
