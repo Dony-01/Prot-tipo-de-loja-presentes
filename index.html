@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mozer´s </title>
+  <title>Mozers Store </title>
   <link rel="stylesheet" href="styles.css" >
 </head>
 
-<body>  
+<body>
 
 <header class="header">
 
@@ -29,6 +29,7 @@
 
 </header>
 
+
   <div class="side-menu" id="sideMenu">
 
   <span class="close-menu" onclick="closeMenu()">✖</span>
@@ -39,7 +40,9 @@
   <a href="localização.html">Localidade</a>
   <a href="contato.html">Contato</a>
 
-</div>
+  </div>
+
+
 
 <div class="categories">
 
@@ -59,16 +62,29 @@ Presentes
 
 </div>
 
-<section class="ofertas">
-  <h2>OFERTAS 🔥</h2>
 
-  <div class="products" id="ofertas"></div>
+<section class="ofertas">
+  <h2> OFERTAS 🔥</h2>
+
+  <div class="products" id="offersContainer"></div>
 
 </section>
 
+</div>
+
 <section class="novidades">
   <h2>NOVIDADES ✨</h2>
-  <div class="products-grid" id="newContainer"></div>
+
+  <div class="carousel-container">
+
+    <button class="carousel-btn left" onclick="scrollCarousel(-1)">‹</button>
+
+    <div class="products-grid" id="newContainer"></div>
+
+    <button class="carousel-btn right" onclick="scrollCarousel(1)">›</button>
+
+  </div>
+
 </section>
 
 <div class="modal" id="productModal">
@@ -87,17 +103,19 @@ Presentes
 
   </div>
 
-<div id="cartItems"></div>
 
 </div>
-  
+
+
 <footer>
-  <p>MOZE®´s 2026</p>
-  <p>Todos os direitos reservados</p>
+  <br>
+  <br> 
+  <br>Todos os direitos reservados</br>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="products.js"></script>
 <script src="cart.js"></script>
 <script src="menu.js"></script>
+ <body>
 </html>
