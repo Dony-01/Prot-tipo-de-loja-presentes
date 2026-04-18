@@ -7,6 +7,7 @@ body {
   scrollbar-width: thin;
 
  display:flex;
+ overflow-x: hidden;
  flex-direction:column;
  min-height:100vh;
 }
@@ -22,16 +23,16 @@ flex:1;
   position:sticky;
   top:0;
 
-  background-image: url("logo.png");
+  background-image: url("../img/logo.png");
   background-size: 600px;
   background-repeat: no-repeat;
   background-position: center;
 
-  background-color: rgba(0, 0, 0, 0.9); /* transparência */
+  background-color: rgb(0, 0, 0); /* transparência */
 
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom:1px solid rgba(255,255,255,0.1);
+  border-bottom:1px solid #eee;
 
   height:120px;
   z-index:1000;
@@ -49,24 +50,30 @@ flex:1;
   max-width:800px;
   align-items:center;
   justify-content:space-between;
-  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  background:rgba(255, 255, 255, 0.8)  ;
+  border-radius: 40px;
   gap:10px; 
 }
 
 .search-bar input{
   flex:1;
   padding:10px;
-  border-radius:20px;
+
   border:none;
-  background:rgba(255, 255, 255, 0.9) ;
+  :focus-within{
+    outline:none;
+  }
+  background:rgba(255, 255, 255, 0.4) ;
 }
 
 .menu{
   font-size:22px;
   cursor:pointer;
+  margin-left: 12px;
 }
 
 /*Configuração carrinho  */
+
 
 .cart img{
   height:22px;
@@ -119,23 +126,27 @@ background:#ffcc00;
   text-align: center;
 }
 
+.container{
+  max-width:1000px;
+  margin:auto;
+}
+
 /* sessão 1 produtos */
 
 .products{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
-  gap:20px;
+  grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+  gap:15px;
+  padding:15px;
 
   max-width:900px;
-  margin:0 auto;
-
-  padding:20px;
+  margin:0 auto; /* 🔥 centraliza */
 }
 
 .product-card{
   background:white;
   border-radius:10px;
-  padding:10px;
+  padding:8px;
   text-align:center;
   box-shadow:0 2px 8px rgba(34,16,16,0.1);
   transition: all 0.25s ease;
@@ -154,7 +165,7 @@ background:#ffcc00;
 }
 
 .product-card h3{
-  font-size:14px;
+  font-size:12px;
   margin:8px 0;
 }
 .product-card img{
@@ -176,8 +187,24 @@ transform:scale(1.05);
   border-radius:6px;
   background:#ffcc00;
   cursor:pointer;
+
+  button:hover {
+    background-color: #e6b800; /* Um tom mais escuro */
+    transform: scale(1.05);
+    transition: 0.3s;
+}
 }
 
+section {
+  margin-bottom: 40px;
+}
+
+h2{
+  margin:20px 0;
+  font-size:22px;
+  font-weight:bold;
+  text-align:center;
+}
 
 /* Sessão 2 novidades  */
 
@@ -205,16 +232,25 @@ transform:scale(1.05);
   padding:20px;
   border-radius:10px;
   text-align:center;
+  position:fixed;
+  overflow: auto;
   width:250px;
+  display:flex;
+  gap: 15px;
 }
 
 .modal-content img{
   width:100%;
+  min-width: 160px;
 }
 
 .close{
   cursor:pointer;
   float:right;
+}
+
+.product-card {
+  min-width: 160px;
 }
 
 /*footer página inicial   */
@@ -223,8 +259,10 @@ footer{
 display:flex;
 flex-direction:column;
 align-items:center;
+text-align: center;
 background: #ffcc00;
 font-weight: bold;
+padding: 20px;
 color: #000000;
 gap:5px;
 }
@@ -271,23 +309,7 @@ cursor:pointer;
 
 /*Configuração carrosel novidades  */
 
-.products-grid{
 
-justify-content: flex-start;
-
-align-items: center;
-
-display:flex;
-
-gap:15px;
-
-padding:15px;
-
-overflow-x:auto;
-
-scrollbar-width:thin;
-
-}
 
 .products-grid::-webkit-scrollbar{
 
@@ -302,10 +324,20 @@ border-radius:10px;
 
 }
 
+.products-grid{
+  display:flex;
+  gap:15px;
+  overflow-x:auto;
+  max-width:100%;
+  padding:15px;
+  justify-content:flex-start; /* mantém scroll natural */
+}
+
 .products-grid .product-card{
-
-min-width:160px;
-
+  min-width:180px;
+  flex:0 0 auto;
+  position:relative;
+  margin:0 auto; /* 🔥 centraliza o bloco inteiro */
 }
 
 /*CSS DA PÁGINA DO CARRINHO!!  */
@@ -388,30 +420,148 @@ border-radius:6px;
 border:1px solid #ccc;
 }
 
+.contact-card{
+  background:white;
+  padding:15px;
+  margin:10px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  cursor:pointer;
+}
+
 /*Configuração página PRODUTO  */
 
+h1{
+  text-align:center;
+  margin:30px 0;
+  font-size:28px;
+}
+
+
+
 .product-page{
-
-display:flex;
-gap:40px;
-
-flex-wrap:wrap;
-max-width:900px;
-margin:50px auto;
-
+  display:flex;
+  gap:40px;
+  flex: 5;
+  flex-wrap:wrap;
+  max-width:900px;
+  margin:50px auto;
+  align-items:center; 
 }
 
 .product-page img{
-
-width:350px;
-border-radius:10px;
-
+  width:100%;
+  max-width:350px;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
 
 .product-info{
 
 display:flex;
 flex-direction:column;
+align-content: center;
+align-items: center;
+font-size: 30px;
 gap:20px;
 
 }
+
+.gallery{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+#mainImage{
+  width:300px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+/* 🔥 CARROSSEL */
+.carousel{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  max-width:300px;
+  padding:5px;
+}
+
+.carousel img{
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:6px;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:0.2s;
+}
+
+.carousel img:hover{
+  transform:scale(1.1);
+}
+
+/*  Estilizando carrosel */
+
+.carousel-container{
+  position:relative;
+  max-width:900px;
+  margin:0 auto; /* 🔥 centraliza o bloco inteiro */
+}
+
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#ffcc00;
+  border:none;
+  padding:10px;
+  border-radius:50%;
+  cursor:pointer;
+  z-index:10;
+}
+
+.carousel-btn.left{
+  left:5px;
+}
+
+.carousel-btn.right{
+  right:5px;
+}
+
+#buyButton{
+  padding:30px;
+  border:none;
+  border-radius:50px;
+  background:#ffcc00;
+  font-weight:bold;
+  cursor:pointer;
+  height: 40px;
+  margin-bottom: 60px;
+  flex-direction: column;
+  transition:0.2s;
+}
+
+#buyButton:hover{
+  background:#e6b800;
+  transform:scale(1.05);
+  font-weight: bold;
+}
+
+footer{
+  margin-top:auto;
+  width:100%;
+  text-align:center;
+  padding:20px;
+  background:#ffcc00;
+
+    background-image: url("../img/logo.png");
+  background-position: center;
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 204, 0, 0.8); /* transparência */
+  
+
+}  
