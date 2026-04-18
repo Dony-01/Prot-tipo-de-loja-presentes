@@ -83,13 +83,13 @@ function checkoutWhatsApp(){
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let message = "Olá! Quero comprar:%0A";
+let message = "Olá! Quero comprar:\n";
 
 cart.forEach(product => {
-message += `• ${product.name} - R$ ${product.price}%0A`;
+message += `• ${product.name} - R$ ${product.price}\n`;
 });
 
-let url = `https://wa.me/5541998534264?text=Ol%C3%A1%2C%20boa%20tarde!tudo%20bem%3F${message}`;
+let url = `https://wa.me/5541998383828?text=${encodeURIComponent(message)}`;
 
 window.open(url,"_blank");
 
@@ -123,7 +123,7 @@ container.innerHTML += `
 
 <p>R$ ${Number(product.price).toLocaleString("pt-BR",{minimumFractionDigits:2})}</p>
 
-<button onclick="removeFromCart(${index})">
+<button onclick="removeItem(${index})">
 Remover
 </button>
 
@@ -138,15 +138,10 @@ updateTotal();
 }
 
 function removeItem(index){
-
-cart.splice(index);
-
-localStorage.setItem("cart", JSON.stringify(cart));
-
-renderCart();
-
-renderProducts(cart);
-
+  cart.splice(index, 1); // remove só 1 item
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+  updateCartCount();
 }
 
 updateCartCount();
