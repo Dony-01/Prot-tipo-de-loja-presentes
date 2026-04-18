@@ -4,68 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mozer´s </title>
-  <link rel="stylesheet" href="styles.css" >
+  <link rel="stylesheet" href="css/styles.css" >
 </head>
 
-<body>  
+
+<body>
 
 <header class="header">
-
   <div class="search-bar">
 
-    <div class="menu"> <img src="menu.png" alt="menu"
+    <div class="menu"> <img src="img/menu.png" alt="menu"
       height=" 20px" width="20px"
       onclick="openMenu()"> </div>
 
     <input id="searchInput" type="text" placeholder="Produto desejado...">
 
-    <div class="cart" onclick="window.location='cart.html'"></div>>
-      <img src="cart.png" alt="carrinho"
-       height="15px"       width="20px">
+    <div class="cart" onclick="window.location='cart.html'">
+      <img src="img/cart.png" alt="carrinho"
+       height="30px"       width="20px">
       <span id="cart-count">0</span>
     </div>
-
-  </div>
-
 </header>
 
-<body>
-
-  <div class="side-menu" id="sideMenu">
-
-  <span class="close-menu" onclick="closeMenu()">✖</span>
-
+<div class="side-menu" id="sideMenu">
+  <span onclick="closeMenu()">✖</span>
   <a href="index.html">Início</a>
-  <a href="ofertas.html">Ofertas</a>
-  <a href="localização.html">Localidade</a>
-  <a href="contato.html">Contato</a>
-
+  <a href="#">Ofertas</a>
+  <a href="#">Localidade</a>
+  <a href="#">Contato</a>
 </div>
 
-<body>
-
-<header>
-<h1>Detalhes do Produto</h1>
-</header>
+<h1 style="margin:20px;">Detalhes do Produto</h1>
 
 <div class="product-page">
 
-<img id="productImage">
+
+
+  <img id="mainImage" src="" alt="Produto">
+
+  <div class="carousel">
+    <img src="img/logo.png" onclick="changeImage(this)">
+    <img src="img/canetas2.jpg" onclick="changeImage(this)">
+    <img src="img/canetas3.jpg" onclick="changeImage(this)">
+  </div>
+
+</div>
 
 <div class="product-info">
-
-<h2 id="productName"></h2>
-
-<p id="productPrice"></p>
-
-<p id="productDescription">
-Produto de alta qualidade disponível em nossa loja.
-</p>
-
-<button id="buyButton">
-Adicionar ao carrinho
-</button>
-
+  <h2 id="productName"></h2>
+  <p id="productPrice"></p>
+  <p>Produto de alta qualidade disponível em nossa loja.</p>
+  <button id="buyButton">Adicionar no carrinho</button>
 </div>
 
 <footer>
@@ -73,8 +62,9 @@ Adicionar ao carrinho
   <p>Todos os direitos reservados</p>
 </footer>
 
-<script src="products.js"></script>
-<script src="cart.js"></script>
-<script src="menu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/menu.js"></script>
 </body>
-</html>
+
