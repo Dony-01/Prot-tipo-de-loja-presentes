@@ -1,139 +1,147 @@
+
+console.log("RODOU products.js");
+
+const supabaseClient = window.supabase.createClient(
+  "https://rpdkkgutaqvdajdcokma.supabase.co",
+  "sb_publishable_98uCafB5OOqdsu5vIbMGIA_mCTvSpdh"
+);
+
+
 let products = [];
 
-fetch("https://sheetdb.io/api/v1/v91yt0l1rpveu")
-  .then(res => res.json())
-  .then(data => {
+async function loadProducts(){
+  console.log("Buscando..."); // 👈 aqui
 
-    products = data.map(p => ({
-      id: Number(p.id),
-      name: p.name,
-      price: Number(p.price.toString().replace(",", ".")),
-      image: p.image,
-      category: p.category,
-      isNew: p.isNew.toString().trim().toLowerCase() === "true",
-      description: p.description
-    }));
+const { data, error } = await supabaseClient
+  .from("products")
+  .select("*");
 
-    console.log(products); // 👈 AQUI
-    
-    initStore();
+  console.log("DATA:", data);  
+  console.log("ERROR:", error); 
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+  if(error){
+    console.error(error);
+    return;
+  }
 
-    if(id){
-      const product = products.find(p => p.id == id);
+  products = data;
 
-      if(product){
-        document.getElementById("mainImage").src = product.image;
-        document.getElementById("productName").innerText = product.name;
-        document.getElementById("productPrice").innerText =
-          "R$ " + product.price.toFixed(2);
-          document.getElementById("productDescription").innerText = product.description;
+  initStore();
+  loadProductPage();
+}
 
-        document.getElementById("buyButton").onclick = function(){
-          addToCart(product);
-        };
-      }
-    }
 
+function loadProductPage(){
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  
+  if(!id) return;
+
+  const product = products.find(p => p.id == id);
+if(!product) return;
+
+const img = document.getElementById("mainImage");
+
+let images = [];
+
+if(product.image){
+  images.push(product.image);
+}
+
+if(product.images){
+  let extra = typeof product.images === "string"
+    ? JSON.parse(product.images)
+    : product.images;
+
+  images = images.concat(extra);
+}
+
+if(img && images.length > 0){
+  img.src = images[0];
+}
+
+const gallery = document.getElementById("gallery");
+
+if(gallery && images.length > 1){
+  gallery.innerHTML = "";
+
+  images.forEach(src => {
+    gallery.innerHTML += `<img src="${src}" width="60">`;
   });
+}
+  const nameEl = document.getElementById("productName");
+if(nameEl){
+  nameEl.innerText = product.name;
+}
+const price = document.getElementById("productPrice");
+if(price){
+  price.innerText = "R$ " + product.price.toFixed(2);
+}
+  const desc = document.getElementById("productDescription");
+const btn = document.getElementById("buyButton");
+
+if(desc){
+  desc.innerText = product.description ? product.description : "Sem descrição";
+}
+
+if(btn){
+  btn.onclick = () => addToCart(product);
+}
+}
 
 function renderProducts(list, container){
-
   container.innerHTML = "";
 
-  list.forEach((product,index) => {
+  list.forEach(product => {
     container.innerHTML += `
       <div class="product-card">
-        <img src="${product.image}" 
-        onclick="window.location.href='produto.html?id=${product.id}'">
+        <img src="${product.image}" onclick="window.location.href='produto.html?id=${product.id}'">
         <h3>${product.name}</h3>
-
-        <p class="price">
-        R$ ${product.price.toLocaleString("pt-BR",{minimumFractionDigits:2})}
-        </p>
-
-        <button onclick="addToCartById(${product.id})"  >
-        Adicionar ao carrinho
+        <p class="price">R$ ${product.price.toFixed(2)}</p>
+        <button onclick="addToCartById(${product.id})">
+          Adicionar ao carrinho
         </button>
       </div>
     `;
   });
-
 }
 
+function renderGrid(list, containerId){
+  let grid = document.getElementById(containerId);
+  if(!grid) return;
 
-const params = new URLSearchParams(window.location.search);
+  grid.innerHTML = "";
 
-const productId = params.get("id");
+  list.forEach(product => {
+    grid.innerHTML += `
+      <div class="product-card">
+        <img src="${product.image}" onclick="window.location.href='produto.html?id=${product.id}'">
+        <h3>${product.name}</h3>
+        <p class="price">R$ ${product.price.toFixed(2)}</p>
+        <button onclick="addToCartById(${product.id})">
+          Adicionar ao carrinho
+        </button>
+      </div>
+    `;
+  });
+}
 
-const id = params.get("id");
-
-if(id !== null){
-
-document.getElementById("mainImage").src = product.image;
-
-document.getElementById("productName").innerText = product.name;
-
-document.getElementById("productPrice").innerText =
-"R$ " + product.price.toFixed(2);
-
-document.getElementById("buyButton").onclick = function(){
+function addToCartById(id){
+  let product = products.find(p => p.id === id);
   addToCart(product);
-};
-
 }
+
+loadProducts();
 
 
 function filterCategory(category){
+  let container = document.getElementById("offersContainer");
 
-let container = document.getElementById("offersContainer");
+  let filtered = category === "all"
+    ? products.filter(p => !p.isNew)
+    : products.filter(p => p.category === category && !p.isNew);
 
-let buttons = document.querySelectorAll(".category-btn");
-
-buttons.forEach(btn => btn.classList.remove("active"));
-
-event.target.classList.add("active");
-
-let filtered = category === "all"
-  ? products.filter(p => !p.isNew)
-  : products.filter(p => p.category === category && !p.isNew);
-
-renderProducts(filtered, container);
-}
-
-
-function renderGrid(list, containerId){
-
-let grid = document.getElementById(containerId);
-
-if(!grid) return;
-
-grid.innerHTML = "";
-
-list.forEach(product => {
-
-grid.innerHTML += `
-<div class="product-card">
-
-<img src="${product.image}" 
-onclick="window.location.href='produto.html?id=${product.id}'">
-
-<h3>${product.name}</h3>
-
-<p class="price">
-R$ ${product.price.toLocaleString("pt-BR",{minimumFractionDigits:2})}
-</p>
-
-<button onclick="addToCartById(${product.id})">
-Adicionar ao carrinho
-</button>
-</div>
-`;
-
-});
-
+  renderProducts(filtered, container);
 }
 
 function scrollCarousel(direction){
@@ -143,29 +151,23 @@ function scrollCarousel(direction){
   container.scrollLeft += direction * scrollAmount;
 }
 
-function addToCartById(id){
-  let product = products.find(p => p.id === id);
-  addToCart(product);
+const searchInput = document.getElementById("searchInput");
+
+if(searchInput){
+  searchInput.addEventListener("input", function(){
+    let container = document.getElementById("offersContainer");
+
+    let search = this.value.toLowerCase();
+
+    let filtered = products.filter(product =>
+      product.name.toLowerCase().includes(search)
+    );
+
+    renderProducts(filtered, container);
+  });
 }
 
-  renderGrid(news, "newContainer");
 
-  const searchInput = document.getElementById("searchInput");
-
-  if(searchInput){
-    searchInput.addEventListener("input", function(){
-
-      let search = this.value.toLowerCase();
-
-      let filtered = products.filter(product =>
-        product.name.toLowerCase().includes(search)
-      );
-
-      renderProducts(filtered, container);
-
-      renderGrid(news, "newContainer");
-    });
-  }
 
 function initStore(){
 
@@ -177,6 +179,8 @@ function initStore(){
   if(container){
     renderProducts(offers, container);
   }
+
+  
 
   renderGrid(news, "newContainer");
 }
