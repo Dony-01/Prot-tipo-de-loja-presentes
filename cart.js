@@ -84,11 +84,13 @@ function checkoutWhatsApp(){
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let message = "Olá! Quero comprar:\n";
+let message = "Olá! Quero comprar:\n\n";
 
-cart.forEach(product => {
-message += `• ${product.name} - R$ ${product.price}\n`;
+cart.forEach(p => {
+  message += `🛒 ${p.name}\n💰 R$ ${p.price}\n\n`;
 });
+
+message += "Pode me atender?";
 
 let url = `https://wa.me/5541998383828?text=${encodeURIComponent(message)}`;
 
@@ -112,6 +114,8 @@ container.innerHTML = "<p>Seu carrinho está vazio</p>";
 return;
 
 }
+
+
 
 cart.forEach((product,index) => {
 
@@ -138,6 +142,8 @@ updateTotal();
 
 
 }
+
+
 
 function removeItem(index){
   cart.splice(index, 1);
