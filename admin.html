@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mozer´s </title>
+  <link rel="stylesheet" href="styles.css" >
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+
+<header class="header">
+
+  <div class="search-bar">
+
+    <div class="menu"> <img src="menu.png" alt="menu"
+      height=" 20px" width="20px"
+      onclick="openMenu()"> </div>
+
+    <input id="searchInput" type="text" placeholder="Produto desejado...">
+
+    <div class="cart">
+      <img src="cart.png" alt="carrinho"
+       height="30px"       width="20px">
+      <span id="cart-count">0</span>
+    </div>
+
+  </div>
+
+</header>
+
+<body>
+
+  <div class="side-menu" id="sideMenu">
+
+  <span class="close-menu" onclick="closeMenu()">✖</span>
+
+  <a href="index.html">Início</a>
+  <a href="ofertas.html">Ofertas</a>
+  <a href="localização.html">Localidade</a>
+  <a href="contato.html">Contato</a>
+
+</div>
+
+<div class="admin-container">
+  <div class="product-form">
+
+
+
+<h2>Adicionar Produto</h2>
+
+
+<input id="name" placeholder="Nome"><br>
+<input id="price" placeholder="Preço"><br>
+<input id="category" placeholder="Categoria"><br>
+<textarea id="description" placeholder="Descrição"></textarea><br>
+<input type="file" id="fileInput" multiple><br><br>
+<div id="productList"></div>
+<div id="preview"></div>
+
+
+<label>
+  Novo? <input type="checkbox" id="isNew">
+
+  </div>
+</div>
+
+
+  <style>
+    label {
+      display: block;
+      margin-top: 10px;
+      justify-content: center;
+    }
+  </style>
+</label><br><br>
+
+<button onclick="addProduct()">Salvar</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin.js"></script>
+
+<footer>
+  <br><br>
+  <br><br>
+  <br>&copy; 2024 Mozers Store. <br>
+  <br>Todos os direitos reservados</br>
+</footer>
+
+<script src="menu.js"></script>
+</html>
